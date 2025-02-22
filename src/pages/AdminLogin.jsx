@@ -1,19 +1,26 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    if (email === "admin@gmail.com" && password === "admin123") {
-      localStorage.setItem("isAdmin", "true");
-      alert("Login successful!");
-      navigate("/admin");
-    } else {
-      alert("Invalid admin credentials!");
-    }
+    setLoading(true);
+    setTimeout(() => {
+      if (email === "admin@gmail.com" && password === "admin123") {
+        localStorage.setItem("isAdmin", "true");
+        toast.success("Login successful!");
+        navigate("/admin");
+      } else {
+        toast.error("Invalid admin credentials!");
+      }
+      setLoading(false);
+    }, 1500);
   };
 
   return (
@@ -36,9 +43,14 @@ const AdminLogin = () => {
         />
         <button
           onClick={handleLogin}
-          className="w-full bg-blue-500 text-white py-2 rounded"
+          className="w-full bg-blue-500 text-white py-2 rounded flex items-center justify-center"
+          disabled={loading}
         >
-          Login
+          {loading ? (
+            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+          ) : (
+            "Login"
+          )}
         </button>
       </div>
     </div>

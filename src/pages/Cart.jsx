@@ -3,8 +3,9 @@ import { useCart } from "../context/CartContext";
 import { FaTrash } from "react-icons/fa";
 
 export default function Cart() {
-  const { cart, updateCartQuantity, removeFromCart } = useCart();
+  const { cart, updateCartQuantity, removeFromCart, clearCart } = useCart();
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const total = cart.reduce(
@@ -13,6 +14,16 @@ export default function Cart() {
     );
     setTotalPrice(total);
   }, [cart]);
+
+  const handleCheckout = () => {
+    setIsModalOpen(true);
+  };
+
+  const confirmCheckout = () => {
+    clearCart();
+    setIsModalOpen(false);
+    alert("Order placed successfully!");
+  };
 
   return (
     <div className="p-4">
@@ -81,11 +92,36 @@ export default function Cart() {
 
           <button
             className="mt-4 px-4 py-2 bg-green-500 text-white rounded w-full md:w-auto cursor-pointer"
-            onClick={() => alert("Order booked")}
+            onClick={handleCheckout}
           >
             Checkout
           </button>
         </>
+      )}
+
+      {isModalOpen && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-80 border">
+            <h2 className="text-lg font-bold mb-4">Confirm Checkout</h2>
+            <p>Are you sure you want to place the order?</p>
+
+            <div className="flex justify-between mt-6">
+              <button
+                className="px-4 py-2 bg-red-500 text-white rounded cursor-pointer"
+                onClick={() => setIsModalOpen(false)}
+              >
+                Cancel
+              </button>
+
+              <button
+                className="px-4 py-2 bg-green-500 text-white rounded cursor-pointer"
+                onClick={confirmCheckout}
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

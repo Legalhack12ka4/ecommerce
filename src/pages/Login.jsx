@@ -17,7 +17,7 @@ const Login = () => {
       toast.success("Login successful!");
       navigate("/");
     } catch (error) {
-      toast.error("Login failed: " + error.message);
+      toast.error("Invalid user credentials!");
     } finally {
       setLoading(false);
     }
