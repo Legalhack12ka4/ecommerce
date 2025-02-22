@@ -3,6 +3,7 @@ import { useWishlist } from "../context/WishlistContext";
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { FaShoppingCart, FaTrash, FaEye } from "react-icons/fa";
 
 const Wishlist = () => {
   const { wishlist, removeFromWishlist } = useWishlist();
@@ -36,7 +37,7 @@ const Wishlist = () => {
           {wishlist.map((item) => (
             <div
               key={item.id}
-              className="flex items-center justify-between border p-4 rounded-md shadow-md"
+              className="flex flex-col md:flex-row items-center justify-between border p-4 rounded-md shadow-md"
             >
               <div className="flex items-center space-x-4">
                 <img
@@ -49,27 +50,26 @@ const Wishlist = () => {
                   <p className="text-gray-700">${item.price}</p>
                 </div>
               </div>
-
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 mt-4 md:mt-0">
                 <button
-                  className="px-2 py-1 bg-green-500 text-white rounded"
+                  className="p-2 bg-green-500 text-white rounded flex items-center justify-center w-10 h-10"
                   onClick={() => handleAddToCart(item)}
                 >
-                  Add to Cart
+                  <FaShoppingCart size={18} />
                 </button>
 
                 <button
-                  className="px-2 py-1 bg-red-500 text-white rounded"
+                  className="p-2 bg-red-500 text-white rounded flex items-center justify-center w-10 h-10"
                   onClick={() => handleRemove(item.id)}
                 >
-                  Remove
+                  <FaTrash size={18} />
                 </button>
 
                 <Link
                   to={`/product/${item.id}`}
-                  className="px-2 py-1 bg-blue-500 text-white rounded"
+                  className="p-2 bg-blue-500 text-white rounded flex items-center justify-center w-10 h-10"
                 >
-                  View
+                  <FaEye size={18} />
                 </Link>
               </div>
             </div>

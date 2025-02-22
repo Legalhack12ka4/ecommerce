@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    setLoading(true);
     try {
       await login(email, password);
       toast.success("Login successful!");
       navigate("/");
     } catch (error) {
       toast.error("Login failed: " + error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -42,9 +46,14 @@ const Login = () => {
 
         <button
           onClick={handleLogin}
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-md"
+          className="w-full bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-md flex justify-center items-center"
+          disabled={loading}
         >
-          Login
+          {loading ? (
+            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+          ) : (
+            "Login"
+          )}
         </button>
       </div>
     </div>

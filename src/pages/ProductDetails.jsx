@@ -24,33 +24,45 @@ const ProductDetails = () => {
     addToCart(product);
     showToast(`${product.title} added to cart!`, "success");
   };
+
   const handleAddToWishlist = () => {
     addToWishlist(product);
     showToast(`${product.title} added to wishlist!`, "info");
   };
-  return (
-    <div className="p-4">
-      <img
-        src={product.image}
-        alt={product.title}
-        className="w-64 h-64 object-contain mx-auto"
-      />
-      <h1 className="text-2xl font-bold">{product.title}</h1>
-      <p>{product.description}</p>
-      <p className="text-xl text-green-500">${product.price}</p>
-      <button
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-        onClick={handleAddToCart}
-      >
-        Add to Cart
-      </button>
 
-      <button
-        className="mt-4 px-4 py-2 bg-purple-500 text-white rounded"
-        onClick={handleAddToWishlist}
-      >
-        Add to Wishlist
-      </button>
+  return (
+    <div className="p-4 max-w-4xl mx-auto">
+      <div className="flex justify-center">
+        <img
+          src={product.image}
+          alt={product.title}
+          className="w-64 h-64 object-contain"
+        />
+      </div>
+
+      <div className="text-center mt-4">
+        <h1 className="text-2xl font-bold">{product.title}</h1>
+        <p className="text-gray-600 mt-2">{product.description}</p>
+        <p className="text-2xl text-green-500 font-semibold mt-2">
+          ${product.price}
+        </p>
+      </div>
+
+      <div className="mt-6 flex flex-col sm:flex-row sm:justify-center gap-4">
+        <button
+          className="px-6 py-3 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition w-full sm:w-auto cursor-pointer"
+          onClick={handleAddToCart}
+        >
+          Add to Cart 🛒
+        </button>
+
+        <button
+          className="px-6 py-3 bg-purple-500 text-white font-semibold rounded hover:bg-purple-600 transition w-full sm:w-auto cursor-pointer"
+          onClick={handleAddToWishlist}
+        >
+          Add to Wishlist 💜
+        </button>
+      </div>
     </div>
   );
 };

@@ -47,16 +47,16 @@ export default function Home() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="flex justify-between mb-4">
+      <div className="flex flex-col md:flex-row md:justify-between mb-4 space-y-2 md:space-y-0">
         <input
           type="text"
           placeholder="Search products..."
-          className="p-2 border rounded w-2/3"
+          className="p-2 border rounded w-full md:w-2/3"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
         <select
-          className="p-2 border rounded"
+          className="p-2 border rounded w-full md:w-auto"
           value={sortOption}
           onChange={(e) => setSortOption(e.target.value)}
         >

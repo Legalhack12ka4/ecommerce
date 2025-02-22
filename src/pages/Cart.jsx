@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
-import { useState, useEffect } from "react";
+import { FaTrash } from "react-icons/fa";
 
 export default function Cart() {
   const { cart, updateCartQuantity, removeFromCart } = useCart();
@@ -26,7 +26,7 @@ export default function Cart() {
             {cart.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between border p-4 rounded-md shadow-md"
+                className="flex flex-col md:flex-row items-center justify-between border p-4 rounded-md shadow-md"
               >
                 <div className="flex items-center space-x-4">
                   <img
@@ -42,9 +42,9 @@ export default function Cart() {
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2 mt-4 md:mt-0">
                   <button
-                    className="px-2 py-1 bg-gray-300 rounded"
+                    className="p-2 bg-gray-300 rounded flex items-center justify-center w-10 h-10 cursor-pointer"
                     onClick={() =>
                       updateCartQuantity(item.id, item.quantity - 1)
                     }
@@ -53,10 +53,10 @@ export default function Cart() {
                     -
                   </button>
 
-                  <span>{item.quantity}</span>
+                  <span className="px-3">{item.quantity}</span>
 
                   <button
-                    className="px-2 py-1 bg-gray-300 rounded"
+                    className="p-2 bg-gray-300 rounded flex items-center justify-center w-10 h-10 cursor-pointer"
                     onClick={() =>
                       updateCartQuantity(item.id, item.quantity + 1)
                     }
@@ -65,10 +65,10 @@ export default function Cart() {
                   </button>
 
                   <button
-                    className="px-2 py-1 bg-red-500 text-white rounded"
+                    className="p-2 bg-red-500 text-white rounded flex items-center justify-center w-10 h-10 cursor-pointer"
                     onClick={() => removeFromCart(item.id)}
                   >
-                    Remove
+                    <FaTrash size={18} />
                   </button>
                 </div>
               </div>
@@ -80,8 +80,8 @@ export default function Cart() {
           </h2>
 
           <button
-            className="mt-4 px-4 py-2 bg-green-500 text-white rounded"
-            onClick={() => alert("Checkout completed! (Mocked Action)")}
+            className="mt-4 px-4 py-2 bg-green-500 text-white rounded w-full md:w-auto cursor-pointer"
+            onClick={() => alert("Order booked")}
           >
             Checkout
           </button>
